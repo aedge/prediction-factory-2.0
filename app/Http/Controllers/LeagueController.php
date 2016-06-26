@@ -96,7 +96,7 @@ class LeagueController extends Controller
             
         } else {
             
-            $user_league = $league->members()>where('user_id', $request->user()->id)->first();
+            $user_league = $league->members()->where('user_id', $request->user()->id)->first();
            
             if(is_null($user_league)) {
                 $league->members()->attach($request->user());
