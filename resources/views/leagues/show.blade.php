@@ -18,7 +18,6 @@
 					<th>#</th>
 					<th>Name</th>
 					<th>Total Points</th>
-					<th>Accuracy (%)</th>
 				</tr>
 				</thead>
 				</tbody>
