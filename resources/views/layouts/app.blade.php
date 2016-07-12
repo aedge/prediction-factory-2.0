@@ -45,7 +45,7 @@
                     <ul class="nav navbar-nav">
                         <li @if(Request::is('predictions')) class="active" @endif><a href="predictions">Predictions <span class="sr-only">(current)</span></a></li>
                         <li @if(Request::is('leagues')) class="active" @endif><a href="leagues">Leagues </a></li>
-                        @if(Auth::user()->name == "Andrew Edge")
+                        @if(Auth::user()->hasRole("CompetitionAdmin"))
                             <li @if(Request::is('results')) class="active" @endif><a href="results">Results </a></li>
                         @endif
                     </ul>

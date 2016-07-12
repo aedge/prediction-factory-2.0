@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Helper;
 
 class User extends Authenticatable
 {
@@ -39,15 +40,24 @@ class User extends Authenticatable
     
     public function competitions() {
         
+        $competitions = [];
+        
+        foreach($this->leagues() as $league){
+            if(!in_array($league->competition()->name, array_pluck($competitions, 'name'))){
+                array_push($competitions, $league->competition());
+            }
+        }
+        
+        return $competitions;
+        /*
         return $this->hasMany('user_competitions', 'user_id')
                     ->leftJoin('competitions', 'user_competitions.competition_id', '=', 'competitions.id')
                     ->select('competitions.*');
-
-
+        */
     }
     
     public function roles() {
-        return $this->belongsToMany('Role', 'users_roles');
+        return $this->belongsToMany(Role::class, 'user_roles');
     }
     
     /**
@@ -69,7 +79,7 @@ class User extends Authenticatable
       */
      public function hasRole($check)
      {
-         return in_array($check, array_fetch($this->roles->toArray(), 'name'));
+         return in_array($check, array_pluck($this->roles->toArray(), 'name'));
      }
  
      /**
@@ -95,7 +105,7 @@ class User extends Authenticatable
      {
          $assigned_roles = array();
  
-         $roles = array_fetch(Role::all()->toArray(), 'name');
+         $roles = array_pluck(Role::all()->toArray(), 'name');
  
          switch ($title) {
              case 'system_admin':

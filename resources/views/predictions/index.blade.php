@@ -138,6 +138,7 @@
             self.homescore = ko.observable(event.homescore);
             self.awayscore = ko.observable(event.awayscore);
             self.disabled  = ko.observable(event.disabled);
+            self.points    = ko.observable(event.points + " points");
             /**
             self.homescore.subscribe(function(newValue) {
                 console.log(self.homescore() + " " + self.awayscore() + " " + self.result());
@@ -194,6 +195,7 @@
                     <div class="col-xs-2" style="padding-right:0px;padding-left:5px;" ><input type="number" class="form-control" data-bind="value: awayscore, bootstrapDisabled: disabled"  /></div>\
                     <div class="col-xs-4"><h4 data-bind="text: awayteam"></h4></div>\
                 </div>\
+                <div class="panel-footer" data-bind="text: points, visible: disabled"></div>\
             </div>'
     });
     
@@ -206,6 +208,7 @@
             self.name = ko.observable(event.name);
             self.text = ko.observable(event.text);
             self.disabled  = ko.observable(event.disabled);
+            self.points  = ko.observable(event.points + " points");
             
             self.text.subscribe(function(newValue) {
                 var data = ko.toJSON(self);
@@ -220,11 +223,13 @@
         template:
             '<div class="panel panel-default text-center" >\
                 <div class="panel-heading" data-bind="text: date"></div>\
-                <div class="panel-body">\
+                    <div class="panel-body">\
                         <h4 data-bind="text: name"></h4>\
                         <input type="text" id="txtName" class="form-control" data-bind="value: text, bootstrapDisabled: disabled" />\
                     </div>\
+                <div class="panel-footer" data-bind="text: points, visible: disabled"></div>\
                 </div>'
+                
         });
         
     ko.bindingHandlers.bootstrapDisabled = {
